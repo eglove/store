@@ -4,6 +4,7 @@
     "@tsconfig/node-lts"
   ],
   "compilerOptions": {
+    "declaration": true,
     "lib": [
       "DOM",
       "ESNext"
