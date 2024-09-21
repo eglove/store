@@ -2,17 +2,20 @@
   "name": "@ethang/store",
   "version": "1.0.0",
   "description": "Fine grained state management",
-  "scripts": {
-    "lint": "eslint",
-    "lint:fix": "eslint . --fix"
-  },
+  "license": "ISC",
+  "author": "Ethan Glover",
   "type": "module",
+  "scripts": {
+    "lint": "eslint src --fix"
+  },
   "browserslist": [
     "defaults and fully supports es6-module",
     "maintained node versions"
   ],
-  "author": "Ethan Glover",
-  "license": "ISC",
+  "dependencies": {
+    "immer": "^10.1.1",
+    "uuid": "^10.0.0"
+  },
   "devDependencies": {
     "@ethang/eslint-config": "^19.6.7",
     "@ethang/project-builder": "^2.6.1",
@@ -22,9 +25,5 @@
     "eslint": "^9.11.0",
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.6.0"
-  },
-  "dependencies": {
-    "immer": "^10.1.1",
-    "uuid": "^10.0.0"
   }
 }
