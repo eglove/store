@@ -1,6 +1,6 @@
 import { projectBuilder } from "@ethang/project-builder/project-builder.js";
 
-await projectBuilder("store", "main", {
+await projectBuilder("store", "master", {
   isLibrary: true,
   publicDirectory: "dist",
   scripts: ["UPDATE", "DEDUPE", "LINT"],
