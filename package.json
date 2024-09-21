@@ -18,7 +18,7 @@
     "uuid": "^10.0.0"
   },
   "devDependencies": {
-    "@ethang/eslint-config": "^19.7.1",
+    "@ethang/eslint-config": "^19.7.3",
     "@ethang/project-builder": "^2.6.1",
     "@types/uuid": "^10.0.0",
     "eslint": "^9.11.0",
