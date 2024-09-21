@@ -7,6 +7,7 @@ await projectBuilder("store", "master", {
   tsConfigOverrides: {
     compilerOptions: {
       emitDeclarationOnly: true,
+      outDir: "dist",
     },
     include: ["src"],
   },
