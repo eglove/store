@@ -21,7 +21,7 @@ export class Store<TState> {
     if (this.elementListeners.has(id) && "undefined" !== typeof window) {
       const foundElement = document.querySelector(`[data-listener-id="${id}"]`);
 
-      if (foundElement) {
+      if (!foundElement) {
         this.elementListeners.delete(id);
         this.listeners.delete(updateElement);
         return true;
