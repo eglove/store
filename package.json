@@ -4,6 +4,7 @@
   "description": "Fine grained state management",
   "license": "ISC",
   "author": "Ethan Glover",
+  "main":"index.js",
   "type": "module",
   "scripts": {
     "lint": "eslint src --fix"

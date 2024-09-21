@@ -3,7 +3,7 @@ import { projectBuilder } from "@ethang/project-builder/project-builder.js";
 await projectBuilder("store", "master", {
   isLibrary: true,
   publishDirectory: "dist",
-  scripts: ["UPDATE", "DEDUPE", "LINT"],
+  scripts: [],
   tsConfigOverrides: {
     compilerOptions: {
       emitDeclarationOnly: true,
