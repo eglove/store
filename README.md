@@ -48,7 +48,9 @@ const bindFn = store.bind((state, element) => {
 bindFn(counterButton);
 ```
 
-## Bind React Ref
+## Bind React Ref*
+
+*(fine-grained reactivity)
 
 ```tsx
 <button
@@ -63,7 +65,9 @@ bindFn(counterButton);
 />
 ```
 
-## React useExternalStore
+## React useExternalStore*
+
+*(sync w/ React reconciliation)
 
 ```tsx
 const useStore = () => {
