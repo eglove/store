@@ -1,12 +1,11 @@
 import { type Draft, produce } from "immer";
 import memoize from "lodash/memoize";
+import uniqueId from "lodash/uniqueId";
 
 export type Listener<TState> = (state: TState) => void;
 
 export class Store<TState> {
   private readonly _elementListeners = new Map<string, HTMLElement>();
-
-  private _idCounter = 0;
 
   private readonly _initialState: TState;
 
@@ -35,16 +34,11 @@ export class Store<TState> {
     return false;
   }
 
-  private getUniqueId() {
-    this._idCounter += 1;
-    return `${Date.now()}-${this._idCounter}`;
-  }
-
   public bind<E>(
     onUpdate: (state: TState, element: E) => void,
   ) {
     return (element: E | null) => {
-      const id = this.getUniqueId();
+      const id = uniqueId();
 
       if (null !== element) {
         const updateElement = () => {

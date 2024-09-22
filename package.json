@@ -26,6 +26,7 @@
     "typescript-eslint": "^8.6.0"
   },
   "peerDependencies": {
-    "immer": "^10.1.1"
+    "immer": "^10.1.1",
+    "lodash": "^4.17.21"
   }
 }
