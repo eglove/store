@@ -52,6 +52,8 @@ const bindFn = store.bind((state, element) => {
 })
 
 bindFn(counterButton);
+
+// Automatically cleans up after element is removed from DOM
 ```
 
 ## Bind React Ref*
