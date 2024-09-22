@@ -1,11 +1,11 @@
 import { type Draft, produce } from "immer";
-import memoize from "lodash/memoize";
-import uniqueId from "lodash/uniqueId";
 
 export type Listener<TState> = (state: TState) => void;
 
 export class Store<TState> {
   private readonly _elementListeners = new Map<string, HTMLElement>();
+
+  private _idCounter = 0;
 
   private readonly _initialState: TState;
 
@@ -37,9 +37,10 @@ export class Store<TState> {
   public bind<E>(
     onUpdate: (state: TState, element: E) => void,
   ) {
-    return (element: E | null) => {
-      const id = uniqueId();
+    const id = `${Date.now()}-${this._idCounter}`;
+    this._idCounter += 1;
 
+    return (element: E | null) => {
       if (null !== element) {
         const updateElement = () => {
           const cleanedUp = this.cleanup(id, updateElement);
@@ -63,9 +64,7 @@ export class Store<TState> {
       return this.state;
     }
 
-    return memoize(() => {
-      return selector(this.state);
-    });
+    return selector(this.state);
   }
 
   public notifySubscribers() {
