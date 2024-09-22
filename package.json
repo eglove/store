@@ -1,6 +1,6 @@
 {
   "name": "@ethang/store",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Fine grained state management",
   "license": "ISC",
   "author": "Ethan Glover",
