@@ -96,7 +96,6 @@ const state = useSyncExternalStore(
 ```tsx
 import { Store } from "@ethang/store";
 import { useStore } from "@ethang/hooks/use-store";
-import { storeSubscriptionHandler, storeSnapshotHandler } from "@ethang/store/util";
 
 const store = new Store({
     dont: "use",
@@ -109,9 +108,9 @@ const store = new Store({
 // Creates selector: state => ({ hello: state.hello, count: state.buttonstuff.count })
 // Compares values: prevState.hello === state.hello, prevState.buttonstuff.count === state.buttonStuff.count
 const count = useStore(
-    storeSubscriptionHandler(store),
-    storeSnapshotHandler(store), // get client snapshot
-    storeSnapshotHandler(store), // get server snaphot
+    listener => store.subscribe(listener),
+    () => store.get(), // get client snapshot
+    () => store.get(), // get server snaphot
     { 
         hello: "world",
         count: ["buttonStuff", "count"] 
