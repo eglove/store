@@ -31,9 +31,11 @@ store.get(state => state.count); // 1
 ## Subscribe to changes
 
 ```ts
-store.subscribe((state) => {
+const unsubscribe = store.subscribe((state) => {
     console.log(`Count is now ${state.count}`);
 })
+
+unsubscribe(); // Don't forget to clean up.
 ```
 
 ## Subscribe HTML element
