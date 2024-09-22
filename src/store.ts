@@ -1,7 +1,7 @@
 // eslint-disable-next-line max-classes-per-file
 import { type Draft, produce } from "immer";
 
-export type Listener = () => void;
+export type Listener<TState> = (state: TState) => void;
 
 class Id {
   private counter = 0;
@@ -21,14 +21,14 @@ export class Store<TState> {
 
   private readonly initialState: TState;
 
-  private readonly listeners = new Set<Listener>();
+  private readonly listeners = new Set<Listener<TState>>();
 
   public constructor(initialState: TState) {
     this._state = initialState;
     this.initialState = initialState;
   }
 
-  private cleanup(id: string, updateElement: Listener): boolean {
+  private cleanup(id: string, updateElement: Listener<TState>): boolean {
     if (this.elementListeners.has(id) && "undefined" !== typeof window) {
       const foundElement = document.querySelector(`[data-listener-id="${id}"]`);
 
@@ -75,7 +75,7 @@ export class Store<TState> {
 
   public notifySubscribers() {
     for (const listener of this.listeners) {
-      listener();
+      listener(this.state);
     }
   }
 
@@ -87,7 +87,7 @@ export class Store<TState> {
     this.state = produce(this.state, updater);
   }
 
-  public subscribe(listener: Listener) {
+  public subscribe(listener: Listener<TState>) {
     this.listeners.add(listener);
 
     return () => {
