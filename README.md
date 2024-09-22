@@ -86,3 +86,7 @@ const state = useStore();
 
 <div>{state.count}</div>
 ```
+
+## Async
+
+Use [TanStack Query](https://tanstack.com/query/latest)
