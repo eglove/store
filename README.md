@@ -1,5 +1,9 @@
 # "state management"
 
+```shell
+pnpm i @ethang/store
+```
+
 ## Create a store:
 
 ```ts
