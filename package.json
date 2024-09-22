@@ -7,7 +7,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint src --fix"
+    "lint": "eslint . --fix"
   },
   "browserslist": [
     "defaults and fully supports es6-module",

@@ -1,15 +1,11 @@
 import config from "@ethang/eslint-config/eslint.config.js";
 import tseslint from "typescript-eslint";
-import astroConfig from "@ethang/eslint-config/config.astro.js"; // OPTIONAL
-import reactConfig from "@ethang/eslint-config/config.react.js"; // OPTIONAL
 
 export default tseslint.config(
     {
-        ignores: []
+        ignores: ["dist", "README.md"]
     },
     ...config,
-    ...astroConfig,
-    ...reactConfig,
     {
         languageOptions: {
             parserOptions: {
