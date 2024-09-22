@@ -65,6 +65,10 @@ export class Store<TState> {
     };
   }
 
+  public get(): TState;
+  // eslint-disable-next-line no-dupe-class-members
+  public get<T>(selector: (state: TState) => T): T;
+  // eslint-disable-next-line no-dupe-class-members
   public get<T>(selector?: (state: TState) => T) {
     if (!selector) {
       return this.state;
