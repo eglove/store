@@ -94,18 +94,31 @@ const state = useSyncExternalStore(
 *(a few less rerenders)
 
 ```tsx
+import { Store } from "@ethang/store";
 import { useStore } from "@ethang/hooks/use-store";
 import { storeSubscriptionHandler, storeSnapshotHandler } from "@ethang/store/util";
 
+const store = new Store({
+    dont: "use",
+    hello: "world",
+    buttonStuff: {
+        count: 0,
+    }
+})
+
+// Creates selector: state => ({ hello: state.hello, count: state.buttonstuff.count })
+// Compares values: prevState.hello === state.hello, prevState.buttonstuff.count === state.buttonStuff.count
 const count = useStore(
     storeSubscriptionHandler(store),
     storeSnapshotHandler(store), // get client snapshot
     storeSnapshotHandler(store), // get server snaphot
-    state => state.count(), // selector
-    (a, b) => boolean, // Optional comparison, defaults to shallow comparison
+    { 
+        hello: "world",
+        count: ["buttonStuff", "count"] 
+    },
 );
 
-<div>{count}</div>
+<div>{hello}{' '}{count}</div>
 ```
 
 ## Batch Updates
