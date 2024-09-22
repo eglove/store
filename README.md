@@ -1,6 +1,6 @@
 # "state management"
 
-* Create a store:
+## Create a store:
 
 ```ts
 import { Store } from "@ethang/store";
@@ -8,7 +8,7 @@ import { Store } from "@ethang/store";
 const store = Store({ count: 0 });
 ```
 
-* Update store
+## Update store
 
 ```ts
 store.set((state) => {
@@ -16,7 +16,7 @@ store.set((state) => {
 })
 ```
 
-* Get from store
+## Get from store
 
 ```ts
 store.get(); // { count: 1 }
@@ -24,7 +24,7 @@ store.get(); // { count: 1 }
 store.get(state => state.count); // 1
 ```
 
-* Subscribe to changes
+## Subscribe to changes
 
 ```ts
 store.subscribe((state) => {
@@ -32,7 +32,7 @@ store.subscribe((state) => {
 })
 ```
 
-* Subscribe HTML element
+## Subscribe HTML element
 
 ```ts
 const counterButton = document.querySelector('#counter');
@@ -41,12 +41,14 @@ counterButton.onclick = () => store.set(state => {
     state.count += 1;
 })
 
-store.bind((state, element) => {
+const bindFn = store.bind((state, element) => {
     element.textContent = state.count; 
 })
+
+bindFn(counterButton);
 ```
 
-* Bind React Ref
+## Bind React Ref
 
 ```tsx
 <button
@@ -61,7 +63,7 @@ store.bind((state, element) => {
 />
 ```
 
-React useExternalStore
+## React useExternalStore
 
 ```tsx
 const useStore = () => {
