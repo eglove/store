@@ -1,8 +1,8 @@
 import { type Draft, produce } from "immer";
 
-export type Listener<TState> = (state: TState) => void;
+export type Listener<TState,> = (state: TState) => void;
 
-export class Store<TState> {
+export class Store<TState,> {
   private readonly _elementListeners = new Map<string, HTMLElement>();
 
   private _idCounter = 0;
@@ -32,7 +32,7 @@ export class Store<TState> {
     return false;
   }
 
-  public bind<E>(
+  public bind<E,>(
     onUpdate: (state: TState, element: E) => void,
   ) {
     const id = `${Date.now()}-${this._idCounter}`;
@@ -56,8 +56,8 @@ export class Store<TState> {
   }
 
   public get(): TState;
-  public get<T>(selector: (state: TState) => T): T;
-  public get<T>(selector?: (state: TState) => T) {
+  public get<T,>(selector: (state: TState) => T): T;
+  public get<T,>(selector?: (state: TState) => T) {
     if (!selector) {
       return this.state;
     }
