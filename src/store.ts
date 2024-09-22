@@ -52,8 +52,7 @@ export class Store<TState> {
         const updateElement = () => {
           const cleanedUp = this.cleanup(id, updateElement);
           if (!cleanedUp) {
-            // @ts-expect-error assume html element
-            onUpdate(this.state, element as HTMLElement);
+            onUpdate(this.state, element);
           }
         };
 
@@ -66,9 +65,7 @@ export class Store<TState> {
   }
 
   public get(): TState;
-  // eslint-disable-next-line no-dupe-class-members
   public get<T>(selector: (state: TState) => T): T;
-  // eslint-disable-next-line no-dupe-class-members
   public get<T>(selector?: (state: TState) => T) {
     if (!selector) {
       return this.state;
