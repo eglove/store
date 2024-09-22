@@ -1,12 +1,23 @@
+// eslint-disable-next-line max-classes-per-file
 import { type Draft, produce } from "immer";
-import { v4 } from "uuid";
 
 export type Listener = () => void;
+
+class Id {
+  private counter = 0;
+
+  public getId() {
+    this.counter += 1;
+    return `${Date.now()}-${this.counter}`;
+  }
+}
 
 export class Store<TState> {
   private _state: TState;
 
   private readonly elementListeners = new Map<string, HTMLElement>();
+
+  private readonly idTracker = new Id();
 
   private readonly initialState: TState;
 
@@ -35,7 +46,7 @@ export class Store<TState> {
     onUpdate: (state: TState, element: E) => void,
   ) {
     return (element: E | null) => {
-      const id = v4();
+      const id = this.idTracker.getId();
 
       if (null !== element) {
         const updateElement = () => {
