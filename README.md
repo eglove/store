@@ -78,12 +78,29 @@ bindFn(counterButton);
 *(sync w/ React reconciliation)
 
 ```tsx
-import { useStore } from "@ethang/hooks/use-store";
+import { useSyncExternalStore } from "react";
 
-const count = useStore(
+const state = useSyncExternalStore(
     listener => store.subcribe(listener),
     () => store.get(), // get client snapshot
     () => store.get(), // get server snaphot
+);
+
+<div>{state.count}</div>
+```
+
+## React hook with selector*
+
+*(a few less rerenders)
+
+```tsx
+import { useStore } from "@ethang/hooks/use-store";
+import { storeSubscriptionHandler, storeSnapshotHandler } from "@ethang/store/util";
+
+const count = useStore(
+    storeSubscriptionHandler(store),
+    storeSnapshotHandler(store), // get client snapshot
+    storeSnapshotHandler(store), // get server snaphot
     state => state.count(), // selector
     (a, b) => boolean, // Optional comparison, defaults to shallow comparison
 );
