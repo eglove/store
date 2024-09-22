@@ -78,35 +78,28 @@ bindFn(counterButton);
 *(sync w/ React reconciliation)
 
 ```tsx
-const useStore = () => {
-    return useSyncExternalStore(
-        listener => store.subscribe(listener),
-        () => store.get(),
-        () => store.get(),
-    )
-}
+import { useStore } from "@ethang/hooks/use-store";
 
-const state = useStore();
+const count = useStore(
+    listener => store.subcribe(listener),
+    () => store.get(), // get client snapshot
+    () => store.get(), // get server snaphot
+    state => state.count(), // selector
+    (a, b) => boolean, // Optional comparison, defaults to shallow comparison
+);
 
-<div>{state.count}</div>
+<div>{count}</div>
 ```
 
 ## Batch Updates
 
 ```ts
-// By default, subscribers aren't notified until after work in set is done
+// Subscribers aren't notified until after work in set is done
 store.set(state => {
     state.count + 1;
     state.count + 1;
     state.count + 1;
 })
-
-// Optionally, you can just turn notifications off for a bit
-store.setIsNotifying(false);
-store.set(state => { ... })
-store.set(state => { ... })
-store.set(state => { ... })
-store.setIsNotifying(true); // Immediately updates subscribers
 ```
 
 ## Async

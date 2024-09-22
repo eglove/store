@@ -9,8 +9,6 @@ export class Store<TState> {
 
   private readonly _initialState: TState;
 
-  private _isNotifying = true;
-
   private readonly _listeners = new Set<Listener<TState>>();
 
   private _state: TState;
@@ -81,14 +79,6 @@ export class Store<TState> {
     this.state = produce(this.state, updater);
   }
 
-  public setIsNotifying(isNotifying: boolean) {
-    this._isNotifying = isNotifying;
-
-    if (isNotifying) {
-      this.notifySubscribers();
-    }
-  }
-
   public subscribe(listener: Listener<TState>) {
     this._listeners.add(listener);
 
@@ -99,10 +89,7 @@ export class Store<TState> {
 
   private set state(state: TState) {
     this._state = state;
-
-    if (this._isNotifying) {
-      this.notifySubscribers();
-    }
+    this.notifySubscribers();
   }
 
   private get state() {
