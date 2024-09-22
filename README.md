@@ -94,27 +94,13 @@ const state = useSyncExternalStore(
 *(a few less rerenders)
 
 ```tsx
-import { Store } from "@ethang/store";
-import { useStore } from "@ethang/hooks/use-store";
+import { useSyncExternalStoreWithSelector } from "use-sync-external-store/with-selector.js";
 
-const store = new Store({
-    dont: "use",
-    hello: "world",
-    buttonStuff: {
-        count: 0,
-    }
-})
-
-// Creates selector: state => ({ hello: state.hello, count: state.buttonstuff.count })
-// Compares values: prevState.hello === state.hello, prevState.buttonstuff.count === state.buttonStuff.count
-const count = useStore(
+const count = useSyncExternalStoreWithSelector(
     listener => store.subscribe(listener),
     () => store.get(), // get client snapshot
     () => store.get(), // get server snaphot
-    { 
-        hello: "world",
-        count: ["buttonStuff", "count"] 
-    },
+    state => state.count,
 );
 
 <div>{hello}{' '}{count}</div>
