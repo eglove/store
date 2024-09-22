@@ -13,28 +13,28 @@ class Id {
 }
 
 export class Store<TState> {
+  private readonly _elementListeners = new Map<string, HTMLElement>();
+
+  private readonly _idTracker = new Id();
+
+  private readonly _initialState: TState;
+
+  private readonly _listeners = new Set<Listener<TState>>();
+
   private _state: TState;
-
-  private readonly elementListeners = new Map<string, HTMLElement>();
-
-  private readonly idTracker = new Id();
-
-  private readonly initialState: TState;
-
-  private readonly listeners = new Set<Listener<TState>>();
 
   public constructor(initialState: TState) {
     this._state = initialState;
-    this.initialState = initialState;
+    this._initialState = initialState;
   }
 
   private cleanup(id: string, updateElement: Listener<TState>): boolean {
-    if (this.elementListeners.has(id) && "undefined" !== typeof window) {
+    if (this._elementListeners.has(id) && "undefined" !== typeof window) {
       const foundElement = document.querySelector(`[data-listener-id="${id}"]`);
 
       if (!foundElement) {
-        this.elementListeners.delete(id);
-        this.listeners.delete(updateElement);
+        this._elementListeners.delete(id);
+        this._listeners.delete(updateElement);
         return true;
       }
     }
@@ -42,11 +42,11 @@ export class Store<TState> {
     return false;
   }
 
-  public bindRef<E>(
+  public bind<E>(
     onUpdate: (state: TState, element: E) => void,
   ) {
     return (element: E | null) => {
-      const id = this.idTracker.getId();
+      const id = this._idTracker.getId();
 
       if (null !== element) {
         const updateElement = () => {
@@ -58,9 +58,9 @@ export class Store<TState> {
         };
 
         updateElement();
-        this.listeners.add(updateElement);
+        this._listeners.add(updateElement);
         (element as HTMLElement).dataset["listenerId"] = id;
-        this.elementListeners.set(id, element as HTMLElement);
+        this._elementListeners.set(id, element as HTMLElement);
       }
     };
   }
@@ -74,13 +74,13 @@ export class Store<TState> {
   }
 
   public notifySubscribers() {
-    for (const listener of this.listeners) {
+    for (const listener of this._listeners) {
       listener(this.state);
     }
   }
 
   public resetState() {
-    this.state = this.initialState;
+    this.state = this._initialState;
   }
 
   public set(updater: (draft: Draft<TState>) => void) {
@@ -88,10 +88,10 @@ export class Store<TState> {
   }
 
   public subscribe(listener: Listener<TState>) {
-    this.listeners.add(listener);
+    this._listeners.add(listener);
 
     return () => {
-      this.listeners.delete(listener);
+      this._listeners.delete(listener);
     };
   }
 
