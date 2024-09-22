@@ -54,6 +54,14 @@ export class Store<TState> {
     };
   }
 
+  public get<T>(selector?: (state: TState) => T) {
+    if (!selector) {
+      return this.state;
+    }
+
+    return selector(this.state);
+  }
+
   public notifySubscribers() {
     for (const listener of this.listeners) {
       listener();
@@ -81,7 +89,7 @@ export class Store<TState> {
     this.notifySubscribers();
   }
 
-  public get state() {
+  private get state() {
     return this._state;
   }
 }
