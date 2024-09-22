@@ -94,8 +94,7 @@ const state = useStore();
 ## Batch Updates
 
 ```ts
-// By default, subscribers aren't notified until 
-// after work in set is done
+// By default, subscribers aren't notified until after work in set is done
 store.set(state => {
     state.count + 1;
     state.count + 1;
