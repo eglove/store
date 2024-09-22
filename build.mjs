@@ -15,7 +15,6 @@ await projectBuilder("store", "master", {
     entry: ["src"],
     format: ["esm"],
     minify: true,
-    noExternal: ["immer"],
     outDir: "dist",
   },
 });

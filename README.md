@@ -91,6 +91,25 @@ const state = useStore();
 <div>{state.count}</div>
 ```
 
+## Batch Updates
+
+```ts
+// By default, subscribers aren't notified until 
+// after work in set is done
+store.set(state => {
+    state.count + 1;
+    state.count + 1;
+    state.count + 1;
+})
+
+// Optionally, you can just turn notifications off for a bit
+store.setIsNotifying(false);
+store.set(state => { ... })
+store.set(state => { ... })
+store.set(state => { ... })
+store.setIsNotifying(true); // Immediately updates subscribers
+```
+
 ## Async
 
 Use [TanStack Query](https://tanstack.com/query/latest)

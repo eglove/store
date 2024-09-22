@@ -1,23 +1,16 @@
-// eslint-disable-next-line max-classes-per-file
 import { type Draft, produce } from "immer";
+import memoize from "lodash/memoize";
 
 export type Listener<TState> = (state: TState) => void;
-
-class Id {
-  private counter = 0;
-
-  public getId() {
-    this.counter += 1;
-    return `${Date.now()}-${this.counter}`;
-  }
-}
 
 export class Store<TState> {
   private readonly _elementListeners = new Map<string, HTMLElement>();
 
-  private readonly _idTracker = new Id();
+  private _idCounter = 0;
 
   private readonly _initialState: TState;
+
+  private _isNotifying = true;
 
   private readonly _listeners = new Set<Listener<TState>>();
 
@@ -42,11 +35,16 @@ export class Store<TState> {
     return false;
   }
 
+  private getUniqueId() {
+    this._idCounter += 1;
+    return `${Date.now()}-${this._idCounter}`;
+  }
+
   public bind<E>(
     onUpdate: (state: TState, element: E) => void,
   ) {
     return (element: E | null) => {
-      const id = this._idTracker.getId();
+      const id = this.getUniqueId();
 
       if (null !== element) {
         const updateElement = () => {
@@ -71,7 +69,9 @@ export class Store<TState> {
       return this.state;
     }
 
-    return selector(this.state);
+    return memoize(() => {
+      return selector(this.state);
+    });
   }
 
   public notifySubscribers() {
@@ -88,6 +88,14 @@ export class Store<TState> {
     this.state = produce(this.state, updater);
   }
 
+  public setIsNotifying(isNotifying: boolean) {
+    this._isNotifying = isNotifying;
+
+    if (isNotifying) {
+      this.notifySubscribers();
+    }
+  }
+
   public subscribe(listener: Listener<TState>) {
     this._listeners.add(listener);
 
@@ -98,7 +106,10 @@ export class Store<TState> {
 
   private set state(state: TState) {
     this._state = state;
-    this.notifySubscribers();
+
+    if (this._isNotifying) {
+      this.notifySubscribers();
+    }
   }
 
   private get state() {
