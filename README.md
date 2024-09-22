@@ -73,7 +73,7 @@ bindFn(counterButton);
 />
 ```
 
-## React useExternalStore*
+## React useSyncExternalStore*
 
 *(sync w/ React reconciliation)
 
