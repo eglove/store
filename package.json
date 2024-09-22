@@ -14,19 +14,16 @@
     "maintained node versions"
   ],
   "dependencies": {
-    "immer": "^10.1.1",
-    "uuid": "^10.0.0"
+    "immer": "^10.1.1"
   },
   "devDependencies": {
     "@ethang/eslint-config": "^19.7.3",
     "@ethang/project-builder": "^2.6.1",
-    "@types/uuid": "^10.0.0",
     "eslint": "^9.11.0",
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.6.0"
   },
   "peerDependencies": {
-    "immer": "^10.1.1",
-    "uuid": "^10.0.0"
+    "immer": "^10.1.1"
   }
 }
