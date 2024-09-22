@@ -9,7 +9,7 @@ pnpm i @ethang/store
 ```ts
 import { Store } from "@ethang/store";
 
-const store = Store({ count: 0 });
+const store = new Store({ count: 0 });
 ```
 
 ## Update store
