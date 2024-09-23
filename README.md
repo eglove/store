@@ -103,7 +103,7 @@ const count = useSyncExternalStoreWithSelector(
     state => state.count,
 );
 
-<div>{hello}{' '}{count}</div>
+<div>{count}</div>
 ```
 
 ## Batch Updates
