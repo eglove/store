@@ -58,7 +58,7 @@ bindFn(counterButton);
 
 ## Bind React Ref*
 
-*(fine-grained reactivity)
+* Fine-grained reactivity, does not trigger rerenders.
 
 ```tsx
 <button
@@ -75,7 +75,7 @@ bindFn(counterButton);
 
 ## React useSyncExternalStore*
 
-*(sync w/ React reconciliation)
+* Sync w/ React reconciliation, triggers component rerenders on state changes.
 
 ```tsx
 import { useSyncExternalStore } from "react";
@@ -91,7 +91,7 @@ const state = useSyncExternalStore(
 
 ## React hook with selector*
 
-*(a few less rerenders)
+* A few less rerenders.
 
 ```tsx
 import { useSyncExternalStoreWithSelector } from "use-sync-external-store/with-selector.js";
