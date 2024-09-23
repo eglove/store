@@ -89,7 +89,7 @@ const state = useSyncExternalStore(
 <div>{state.count}</div>
 ```
 
-## React hook with selector*
+## React useSyncExternalStoreWithSelector*
 
 * A few less rerenders.
 
