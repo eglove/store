@@ -111,9 +111,9 @@ const count = useSyncExternalStoreWithSelector(
 ```ts
 // Subscribers aren't notified until after work in set is done
 store.set(state => {
-    state.count + 1;
-    state.count + 1;
-    state.count + 1;
+    state.count += 1;
+    state.count += 1;
+    state.count += 1;
 })
 ```
 
