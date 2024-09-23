@@ -17,11 +17,11 @@
     "immer": "^10.1.1"
   },
   "devDependencies": {
-    "@ethang/eslint-config": "^19.8.3",
+    "@ethang/eslint-config": "^19.8.4",
     "@ethang/project-builder": "^2.6.1",
     "eslint": "^9.11.0",
     "typescript": "^5.6.2",
-    "typescript-eslint": "^8.6.0"
+    "typescript-eslint": "^8.7.0"
   },
   "peerDependencies": {
     "immer": "^10.1.1"
