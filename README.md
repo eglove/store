@@ -138,6 +138,12 @@ const useCountStore = <T,>(selector: (state: typeof initialTextStoreState) => T)
     );
 }
 
+const incrementCount = () => {
+    store.set(state => {
+        state.count += 1;
+    })
+}
+
 const MyComponent = () => {
     const hello = useCountStore(state => {
         return {
@@ -149,11 +155,7 @@ const MyComponent = () => {
         <div>
             <div>Count</div>
             <button
-                onClick={() => {
-                    countStore.set(state => {
-                        state.count += 1;
-                    })
-                }}
+                onClick={incrementCount}
                 ref={countStore.bind((state, element) => {
                     element.textContent = state.count;
                 })}
