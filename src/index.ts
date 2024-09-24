@@ -5,8 +5,6 @@ export type Listener<TState,> = (state: TState) => void;
 export class Store<TState,> {
   private readonly _elementListeners = new Map<string, HTMLElement>();
 
-  private _idCounter = 0;
-
   private readonly _initialState: TState;
 
   private readonly _listeners = new Set<Listener<TState>>();
@@ -32,11 +30,23 @@ export class Store<TState,> {
     return false;
   }
 
+  private getElementListenerId() {
+    const genId = (id = 0) => {
+      const idString = `${Date.now()}-${id}`;
+
+      if (this._elementListeners.has(idString)) {
+        return genId(id + 1);
+      }
+      return idString;
+    };
+
+    return genId();
+  }
+
   public bind<E,>(
     onUpdate: (state: TState, element: E) => void,
   ) {
-    const id = `${Date.now()}-${this._idCounter}`;
-    this._idCounter += 1;
+    const id = this.getElementListenerId();
 
     return (element: E | null) => {
       if (null !== element) {
