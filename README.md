@@ -131,9 +131,9 @@ const textStore = new Store(initialTextStoreState)
 
 const useCountStore = <T,>(selector: (state: typeof initialTextStoreState) => T) => {
     return useSyncExternalStoreWithSelector(
-        listener => store.subscribe(listener),
-        () => store.get(),
-        () => store.get(),
+        listener => textStore.subscribe(listener),
+        () => textStore.get(),
+        () => textStore.get(),
         selector,
     );
 }
@@ -150,11 +150,11 @@ const MyComponent = () => {
             <div>Count</div>
             <button
                 onClick={() => {
-                    store.set(state => {
+                    countStore.set(state => {
                         state.count += 1;
                     })
                 }}
-                ref={store.bind((state, element) => {
+                ref={countStore.bind((state, element) => {
                     element.textContent = state.count;
                 })}
             />
