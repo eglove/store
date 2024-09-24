@@ -1,6 +1,6 @@
 {
   "name": "@ethang/store",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Fine grained state management",
   "license": "ISC",
   "author": "Ethan Glover",
@@ -19,7 +19,7 @@
   "devDependencies": {
     "@ethang/eslint-config": "^19.8.4",
     "@ethang/project-builder": "^2.6.1",
-    "eslint": "^9.11.0",
+    "eslint": "^9.11.1",
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.7.0"
   },
