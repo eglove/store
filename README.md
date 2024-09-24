@@ -117,6 +117,53 @@ store.set(state => {
 })
 ```
 
+## Altogether Now
+
+```tsx
+import { Store } from "@ethang/store";
+import { useSyncExternalStoreWithSelector } from "use-sync-external-store/with-selector.js";
+
+const initialCountStoreState = {count: 0};
+const initialTextStoreState = {hello: "Hello", world: "World!"};
+
+const countStore = new Store(initialCountStoreState);
+const textStore = new Store(initialTextStoreState)
+
+const useCountStore = <T,>(selector: (state: typeof initialTextStoreState) => T) => {
+    return useSyncExternalStoreWithSelector(
+        listener => store.subscribe(listener),
+        () => store.get(),
+        () => store.get(),
+        selector,
+    );
+}
+
+const MyComponent = () => {
+    const hello = useCountStore(state => {
+        return {
+            hello: state.hello,
+        }
+    });
+    
+    return (
+        <div>
+            <div>Count</div>
+            <button
+                onClick={() => {
+                    store.set(state => {
+                        state.count += 1;
+                    })
+                }}
+                ref={store.bind((state, element) => {
+                    element.textContent = state.count;
+                })}
+            />
+            <ThirdPartyComponent text={hello} />
+        </div>
+    );
+}
+```
+
 ## Async
 
 Use [TanStack Query](https://tanstack.com/query/latest)
