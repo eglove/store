@@ -145,7 +145,7 @@ const incrementCount = () => {
 }
 
 const MyComponent = () => {
-    const hello = useCountStore(state => {
+    const {hello} = useCountStore(state => {
         return {
             hello: state.hello,
         }
