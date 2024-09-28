@@ -17,8 +17,8 @@
     "immer": "^10.1.1"
   },
   "devDependencies": {
-    "@ethang/eslint-config": "^19.8.7",
-    "@ethang/project-builder": "^2.6.1",
+    "@ethang/eslint-config": "^19.8.8",
+    "@ethang/project-builder": "^3.0.0",
     "eslint": "^9.11.1",
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.7.0"
