@@ -17,7 +17,7 @@ export class Store<TState,> {
   }
 
   private cleanup(id: string, updateElement: Listener<TState>): boolean {
-    if (this._elementListeners.has(id) && "undefined" !== typeof window) {
+    if (this._elementListeners.has(id) && "undefined" !== typeof globalThis) {
       const foundElement = document.querySelector(`[data-listener-id="${id}"]`);
 
       if (!foundElement) {
